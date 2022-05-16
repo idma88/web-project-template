@@ -5,14 +5,18 @@ services:
     ports:
       - 3000:3000/tcp
     volumes:
-      - ./backend/:/home/dev/
+      - ./backend/:/home/dev/:cached
+    environment:
+      - CHOKIDAR_USEPOLLING=true
   frontend:
     build: frontend/
     ports:
       - 80:8080/tcp
     volumes:
-      - ./frontend/:/home/dev/
+      - ./frontend/:/home/dev/:cached
     depends_on:
       - backend
     links:
       - backend
+    environment:
+      - CHOKIDAR_USEPOLLING=true
